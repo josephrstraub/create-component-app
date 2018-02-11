@@ -1,0 +1,72 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.generateImports = exports.generateClassComponent = undefined;
+
+var _config = require('../../config.json');
+
+var _config2 = _interopRequireDefault(_config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const COMPONENT_TYPES = {
+  pure: 'PureComponent',
+  class: 'Component'
+};
+
+function generateReactImport(componentType) {
+  return `import React${componentType !== 'stateless' ? `, { ${COMPONENT_TYPES[componentType]} }` : ''} from 'react'`;
+}
+
+function generateComponentMethods(componentMethods) {
+  if (componentMethods.length === 0) {
+    return null;
+  }
+  let methods = '';
+  componentMethods.forEach(method => {
+    methods += `\n\xa0\xa0\xa0\xa0${method}(){}\n`;
+  });
+  return methods;
+}
+
+function generateImports(COMPONENT_NAME, componentType, { cssExtension = _config2.default.cssExtension, styleFileName }) {
+  return `${generateReactImport(componentType)}
+import PropTypes from 'prop-types'
+${cssExtension ? `import styles from './${styleFileName}.${cssExtension}'` : ''}`;
+}
+
+function generateClassComponent(COMPONENT_NAME, componentType, {
+  cssExtension = _config2.default.cssExtension,
+  componentMethods = _config2.default.componentMethods,
+  styleFileName
+}) {
+  return `${generateImports(COMPONENT_NAME, componentType, {
+    cssExtension,
+    styleFileName
+  })}
+
+class ${COMPONENT_NAME} extends ${COMPONENT_TYPES[componentType]} {
+    constructor(props) {
+        super(props)
+    }
+    ${generateComponentMethods(componentMethods)}
+    render() {
+        return (
+            <div className="${COMPONENT_NAME}"></div>
+        );
+    }
+}
+
+${COMPONENT_NAME}.propTypes = {}
+
+${COMPONENT_NAME}.defaultProps = {}
+
+export default ${COMPONENT_NAME}
+`;
+}
+
+exports.generateClassComponent = generateClassComponent;
+exports.generateImports = generateImports;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9kZWZhdWx0VGVtcGxhdGVzL2pzL2NvbW1vbi50ZW1wbGF0ZS5qcyJdLCJuYW1lcyI6WyJDT01QT05FTlRfVFlQRVMiLCJwdXJlIiwiY2xhc3MiLCJnZW5lcmF0ZVJlYWN0SW1wb3J0IiwiY29tcG9uZW50VHlwZSIsImdlbmVyYXRlQ29tcG9uZW50TWV0aG9kcyIsImNvbXBvbmVudE1ldGhvZHMiLCJsZW5ndGgiLCJtZXRob2RzIiwiZm9yRWFjaCIsIm1ldGhvZCIsImdlbmVyYXRlSW1wb3J0cyIsIkNPTVBPTkVOVF9OQU1FIiwiY3NzRXh0ZW5zaW9uIiwic3R5bGVGaWxlTmFtZSIsImdlbmVyYXRlQ2xhc3NDb21wb25lbnQiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7QUFBQTs7Ozs7O0FBRUEsTUFBTUEsa0JBQWtCO0FBQ3RCQyxRQUFNLGVBRGdCO0FBRXRCQyxTQUFPO0FBRmUsQ0FBeEI7O0FBS0EsU0FBU0MsbUJBQVQsQ0FBNkJDLGFBQTdCLEVBQTRDO0FBQzFDLFNBQVEsZUFBY0Esa0JBQWtCLFdBQWxCLEdBQWlDLE9BQU1KLGdCQUFnQkksYUFBaEIsQ0FBK0IsSUFBdEUsR0FBNEUsRUFBRyxlQUFyRztBQUNEOztBQUVELFNBQVNDLHdCQUFULENBQWtDQyxnQkFBbEMsRUFBb0Q7QUFDbEQsTUFBSUEsaUJBQWlCQyxNQUFqQixLQUE0QixDQUFoQyxFQUFtQztBQUNqQyxXQUFPLElBQVA7QUFDRDtBQUNELE1BQUlDLFVBQVUsRUFBZDtBQUNBRixtQkFBaUJHLE9BQWpCLENBQTBCQyxNQUFELElBQVk7QUFDbkNGLGVBQVkscUJBQW9CRSxNQUFPLFFBQXZDO0FBQ0QsR0FGRDtBQUdBLFNBQU9GLE9BQVA7QUFDRDs7QUFFRCxTQUFTRyxlQUFULENBQ0VDLGNBREYsRUFFRVIsYUFGRixFQUdFLEVBQUVTLGVBQWUsaUJBQWVBLFlBQWhDLEVBQThDQyxhQUE5QyxFQUhGLEVBSUU7QUFDQSxTQUFRLEdBQUVYLG9CQUFvQkMsYUFBcEIsQ0FBbUM7O0VBRTdDUyxlQUFnQix5QkFBd0JDLGFBQWMsSUFBR0QsWUFBYSxHQUF0RSxHQUEyRSxFQUFHLEVBRjlFO0FBR0Q7O0FBRUQsU0FBU0Usc0JBQVQsQ0FDRUgsY0FERixFQUVFUixhQUZGLEVBR0U7QUFDRVMsaUJBQWUsaUJBQWVBLFlBRGhDO0FBRUVQLHFCQUFtQixpQkFBZUEsZ0JBRnBDO0FBR0VRO0FBSEYsQ0FIRixFQVFFO0FBQ0EsU0FBUSxHQUFFSCxnQkFBZ0JDLGNBQWhCLEVBQWdDUixhQUFoQyxFQUErQztBQUN2RFMsZ0JBRHVEO0FBRXZEQztBQUZ1RCxHQUEvQyxDQUdQOztRQUVHRixjQUFlLFlBQVdaLGdCQUFnQkksYUFBaEIsQ0FBK0I7Ozs7TUFJM0RDLHlCQUF5QkMsZ0JBQXpCLENBQTJDOzs7OEJBR25CTSxjQUFlOzs7OztFQUszQ0EsY0FBZTs7RUFFZkEsY0FBZTs7aUJBRUFBLGNBQWU7Q0FyQjlCO0FBdUJEOztRQUVRRyxzQixHQUFBQSxzQjtRQUF3QkosZSxHQUFBQSxlIiwiZmlsZSI6ImNvbW1vbi50ZW1wbGF0ZS5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBkZWZhdWx0T3B0aW9ucyBmcm9tICcuLi8uLi9jb25maWcuanNvbidcblxuY29uc3QgQ09NUE9ORU5UX1RZUEVTID0ge1xuICBwdXJlOiAnUHVyZUNvbXBvbmVudCcsXG4gIGNsYXNzOiAnQ29tcG9uZW50Jyxcbn1cblxuZnVuY3Rpb24gZ2VuZXJhdGVSZWFjdEltcG9ydChjb21wb25lbnRUeXBlKSB7XG4gIHJldHVybiBgaW1wb3J0IFJlYWN0JHtjb21wb25lbnRUeXBlICE9PSAnc3RhdGVsZXNzJyA/IGAsIHsgJHtDT01QT05FTlRfVFlQRVNbY29tcG9uZW50VHlwZV19IH1gIDogJyd9IGZyb20gJ3JlYWN0J2Bcbn1cblxuZnVuY3Rpb24gZ2VuZXJhdGVDb21wb25lbnRNZXRob2RzKGNvbXBvbmVudE1ldGhvZHMpIHtcbiAgaWYgKGNvbXBvbmVudE1ldGhvZHMubGVuZ3RoID09PSAwKSB7XG4gICAgcmV0dXJuIG51bGxcbiAgfVxuICBsZXQgbWV0aG9kcyA9ICcnXG4gIGNvbXBvbmVudE1ldGhvZHMuZm9yRWFjaCgobWV0aG9kKSA9PiB7XG4gICAgbWV0aG9kcyArPSBgXFxuXFx4YTBcXHhhMFxceGEwXFx4YTAke21ldGhvZH0oKXt9XFxuYFxuICB9KVxuICByZXR1cm4gbWV0aG9kc1xufVxuXG5mdW5jdGlvbiBnZW5lcmF0ZUltcG9ydHMoXG4gIENPTVBPTkVOVF9OQU1FLFxuICBjb21wb25lbnRUeXBlLFxuICB7IGNzc0V4dGVuc2lvbiA9IGRlZmF1bHRPcHRpb25zLmNzc0V4dGVuc2lvbiwgc3R5bGVGaWxlTmFtZSB9XG4pIHtcbiAgcmV0dXJuIGAke2dlbmVyYXRlUmVhY3RJbXBvcnQoY29tcG9uZW50VHlwZSl9XG5pbXBvcnQgUHJvcFR5cGVzIGZyb20gJ3Byb3AtdHlwZXMnXG4ke2Nzc0V4dGVuc2lvbiA/IGBpbXBvcnQgc3R5bGVzIGZyb20gJy4vJHtzdHlsZUZpbGVOYW1lfS4ke2Nzc0V4dGVuc2lvbn0nYCA6ICcnfWBcbn1cblxuZnVuY3Rpb24gZ2VuZXJhdGVDbGFzc0NvbXBvbmVudChcbiAgQ09NUE9ORU5UX05BTUUsXG4gIGNvbXBvbmVudFR5cGUsXG4gIHtcbiAgICBjc3NFeHRlbnNpb24gPSBkZWZhdWx0T3B0aW9ucy5jc3NFeHRlbnNpb24sXG4gICAgY29tcG9uZW50TWV0aG9kcyA9IGRlZmF1bHRPcHRpb25zLmNvbXBvbmVudE1ldGhvZHMsXG4gICAgc3R5bGVGaWxlTmFtZSxcbiAgfVxuKSB7XG4gIHJldHVybiBgJHtnZW5lcmF0ZUltcG9ydHMoQ09NUE9ORU5UX05BTUUsIGNvbXBvbmVudFR5cGUsIHtcbiAgICBjc3NFeHRlbnNpb24sXG4gICAgc3R5bGVGaWxlTmFtZSxcbiAgfSl9XG5cbmNsYXNzICR7Q09NUE9ORU5UX05BTUV9IGV4dGVuZHMgJHtDT01QT05FTlRfVFlQRVNbY29tcG9uZW50VHlwZV19IHtcbiAgICBjb25zdHJ1Y3Rvcihwcm9wcykge1xuICAgICAgICBzdXBlcihwcm9wcylcbiAgICB9XG4gICAgJHtnZW5lcmF0ZUNvbXBvbmVudE1ldGhvZHMoY29tcG9uZW50TWV0aG9kcyl9XG4gICAgcmVuZGVyKCkge1xuICAgICAgICByZXR1cm4gKFxuICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCIke0NPTVBPTkVOVF9OQU1FfVwiPjwvZGl2PlxuICAgICAgICApO1xuICAgIH1cbn1cblxuJHtDT01QT05FTlRfTkFNRX0ucHJvcFR5cGVzID0ge31cblxuJHtDT01QT05FTlRfTkFNRX0uZGVmYXVsdFByb3BzID0ge31cblxuZXhwb3J0IGRlZmF1bHQgJHtDT01QT05FTlRfTkFNRX1cbmBcbn1cblxuZXhwb3J0IHsgZ2VuZXJhdGVDbGFzc0NvbXBvbmVudCwgZ2VuZXJhdGVJbXBvcnRzIH1cbiJdfQ==

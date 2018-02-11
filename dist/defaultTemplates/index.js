@@ -1,0 +1,50 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.generateStorybookTemplate = exports.generateTestTemplate = exports.generateIndexFile = exports.generateStyleFile = exports.generateClassComponent = exports.generateComponentTemplate = undefined;
+
+var _class = require('./js/class.template');
+
+var _class2 = _interopRequireDefault(_class);
+
+var _functional = require('./js/functional.template');
+
+var _functional2 = _interopRequireDefault(_functional);
+
+var _test = require('./js/test.template');
+
+var _test2 = _interopRequireDefault(_test);
+
+var _storybook = require('./js/storybook.template');
+
+var _storybook2 = _interopRequireDefault(_storybook);
+
+var _style = require('./css/style.template');
+
+var _style2 = _interopRequireDefault(_style);
+
+var _index = require('./js/index.template');
+
+var _index2 = _interopRequireDefault(_index);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const types = {
+  stateless: _functional2.default,
+  class: _class2.default,
+  pure: _class2.default
+};
+
+function generateComponentTemplate(type, name, options = {}) {
+  return types[type](name, type, options);
+}
+
+exports.generateComponentTemplate = generateComponentTemplate;
+exports.generateClassComponent = _class2.default;
+exports.generateStyleFile = _style2.default;
+exports.generateIndexFile = _index2.default;
+exports.generateTestTemplate = _test2.default;
+exports.generateStorybookTemplate = _storybook2.default;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9kZWZhdWx0VGVtcGxhdGVzL2luZGV4LmpzIl0sIm5hbWVzIjpbInR5cGVzIiwic3RhdGVsZXNzIiwiY2xhc3MiLCJwdXJlIiwiZ2VuZXJhdGVDb21wb25lbnRUZW1wbGF0ZSIsInR5cGUiLCJuYW1lIiwib3B0aW9ucyIsImdlbmVyYXRlQ2xhc3NDb21wb25lbnQiLCJnZW5lcmF0ZVN0eWxlRmlsZSIsImdlbmVyYXRlSW5kZXhGaWxlIiwiZ2VuZXJhdGVUZXN0VGVtcGxhdGUiLCJnZW5lcmF0ZVN0b3J5Ym9va1RlbXBsYXRlIl0sIm1hcHBpbmdzIjoiOzs7Ozs7O0FBQUE7Ozs7QUFDQTs7OztBQUNBOzs7O0FBQ0E7Ozs7QUFDQTs7OztBQUNBOzs7Ozs7QUFFQSxNQUFNQSxRQUFRO0FBQ1pDLGlDQURZO0FBRVpDLHdCQUZZO0FBR1pDO0FBSFksQ0FBZDs7QUFNQSxTQUFTQyx5QkFBVCxDQUFtQ0MsSUFBbkMsRUFBeUNDLElBQXpDLEVBQStDQyxVQUFVLEVBQXpELEVBQTZEO0FBQzNELFNBQU9QLE1BQU1LLElBQU4sRUFBWUMsSUFBWixFQUFrQkQsSUFBbEIsRUFBd0JFLE9BQXhCLENBQVA7QUFDRDs7UUFHQ0gseUIsR0FBQUEseUI7UUFDQUksc0I7UUFDQUMsaUI7UUFDQUMsaUI7UUFDQUMsb0I7UUFDQUMseUIiLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgZ2VuZXJhdGVDbGFzc0NvbXBvbmVudCBmcm9tICcuL2pzL2NsYXNzLnRlbXBsYXRlJ1xuaW1wb3J0IGdlbmVyYXRlRnVuY3Rpb25hbENvbXBvbmVudCBmcm9tICcuL2pzL2Z1bmN0aW9uYWwudGVtcGxhdGUnXG5pbXBvcnQgZ2VuZXJhdGVUZXN0VGVtcGxhdGUgZnJvbSAnLi9qcy90ZXN0LnRlbXBsYXRlJ1xuaW1wb3J0IGdlbmVyYXRlU3Rvcnlib29rVGVtcGxhdGUgZnJvbSAnLi9qcy9zdG9yeWJvb2sudGVtcGxhdGUnXG5pbXBvcnQgZ2VuZXJhdGVTdHlsZUZpbGUgZnJvbSAnLi9jc3Mvc3R5bGUudGVtcGxhdGUnXG5pbXBvcnQgZ2VuZXJhdGVJbmRleEZpbGUgZnJvbSAnLi9qcy9pbmRleC50ZW1wbGF0ZSdcblxuY29uc3QgdHlwZXMgPSB7XG4gIHN0YXRlbGVzczogZ2VuZXJhdGVGdW5jdGlvbmFsQ29tcG9uZW50LFxuICBjbGFzczogZ2VuZXJhdGVDbGFzc0NvbXBvbmVudCxcbiAgcHVyZTogZ2VuZXJhdGVDbGFzc0NvbXBvbmVudCxcbn1cblxuZnVuY3Rpb24gZ2VuZXJhdGVDb21wb25lbnRUZW1wbGF0ZSh0eXBlLCBuYW1lLCBvcHRpb25zID0ge30pIHtcbiAgcmV0dXJuIHR5cGVzW3R5cGVdKG5hbWUsIHR5cGUsIG9wdGlvbnMpXG59XG5cbmV4cG9ydCB7XG4gIGdlbmVyYXRlQ29tcG9uZW50VGVtcGxhdGUsXG4gIGdlbmVyYXRlQ2xhc3NDb21wb25lbnQsXG4gIGdlbmVyYXRlU3R5bGVGaWxlLFxuICBnZW5lcmF0ZUluZGV4RmlsZSxcbiAgZ2VuZXJhdGVUZXN0VGVtcGxhdGUsXG4gIGdlbmVyYXRlU3Rvcnlib29rVGVtcGxhdGUsXG59XG4iXX0=

@@ -1,0 +1,18 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function generateStorybookTemplate(COMPONENT_NAME) {
+  return `import React from 'react'
+import { storiesOf } from '@storybook/react'
+
+import ${COMPONENT_NAME} from './${COMPONENT_NAME}'
+
+storiesOf('${COMPONENT_NAME}', module).add('Example 1', () =>
+  <${COMPONENT_NAME} />
+)`;
+}
+
+exports.default = generateStorybookTemplate;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3NyYy9kZWZhdWx0VGVtcGxhdGVzL2pzL3N0b3J5Ym9vay50ZW1wbGF0ZS5qcyJdLCJuYW1lcyI6WyJnZW5lcmF0ZVN0b3J5Ym9va1RlbXBsYXRlIiwiQ09NUE9ORU5UX05BTUUiXSwibWFwcGluZ3MiOiI7Ozs7O0FBQUEsU0FBU0EseUJBQVQsQ0FBbUNDLGNBQW5DLEVBQW1EO0FBQ2pELFNBQVE7OztTQUdEQSxjQUFlLFlBQVdBLGNBQWU7O2FBRXJDQSxjQUFlO0tBQ3ZCQSxjQUFlO0VBTmxCO0FBUUQ7O2tCQUVjRCx5QiIsImZpbGUiOiJzdG9yeWJvb2sudGVtcGxhdGUuanMiLCJzb3VyY2VzQ29udGVudCI6WyJmdW5jdGlvbiBnZW5lcmF0ZVN0b3J5Ym9va1RlbXBsYXRlKENPTVBPTkVOVF9OQU1FKSB7XG4gIHJldHVybiBgaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0J1xuaW1wb3J0IHsgc3Rvcmllc09mIH0gZnJvbSAnQHN0b3J5Ym9vay9yZWFjdCdcblxuaW1wb3J0ICR7Q09NUE9ORU5UX05BTUV9IGZyb20gJy4vJHtDT01QT05FTlRfTkFNRX0nXG5cbnN0b3JpZXNPZignJHtDT01QT05FTlRfTkFNRX0nLCBtb2R1bGUpLmFkZCgnRXhhbXBsZSAxJywgKCkgPT5cbiAgPCR7Q09NUE9ORU5UX05BTUV9IC8+XG4pYFxufVxuXG5leHBvcnQgZGVmYXVsdCBnZW5lcmF0ZVN0b3J5Ym9va1RlbXBsYXRlXG4iXX0=
