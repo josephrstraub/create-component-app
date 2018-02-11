@@ -99,7 +99,7 @@ function getTemplatesList(customPath = null) {
   try {
     const custom = customPath ? getDirectories(customPath).reduce(createListOfDirectories, {}) : []
 
-    return { ...predefined, ...custom }
+    return custom
   } catch (error) {
     Logger.warn('The custom templates path that you supply is unreachable')
     Logger.warn('falling back to defaults templates')
